@@ -1,0 +1,6 @@
+C:\Users\Administrator\Desktop\puguihong.lib\common.lib.DBUtility\bin\Debug\common.lib.DBUtility.dll
+C:\Users\Administrator\Desktop\puguihong.lib\common.lib.DBUtility\bin\Debug\common.lib.DBUtility.pdb
+C:\Users\Administrator\Desktop\puguihong.lib\common.lib.DBUtility\bin\Debug\System.Data.SQLite.dll
+C:\Users\Administrator\Desktop\puguihong.lib\common.lib.DBUtility\obj\Debug\common.lib.DBUtility.dll
+C:\Users\Administrator\Desktop\puguihong.lib\common.lib.DBUtility\obj\Debug\common.lib.DBUtility.pdb
+C:\Users\Administrator\Desktop\puguihong.lib\common.lib.DBUtility\bin\Debug\MySql.Data.dll
