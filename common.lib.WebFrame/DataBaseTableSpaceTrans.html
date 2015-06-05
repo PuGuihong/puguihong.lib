@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>数据库表空间查询</title>
+    <link href="Content/js/jquery-easyui/themes/metro/easyui.css" rel="stylesheet" />
+    <link href="Content/js/jquery-easyui/themes/icon.css" rel="stylesheet" />
+    <script src="Content/js/jquery-easyui/jquery.min.js" type="text/javascript"></script>
+    <script src="Content/js/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="Content/js/jquery-easyui/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
+</head>
+<body>
+    <table id="dg" class="easyui-datagrid" style="width: 100%; height: 750px">
+    </table>
+    <div id="tb" style="padding: 2px 5px;">
+        数据库连接名:
+        <input id="txtDbName" class="easyui-textbox" data-options="required:true" style="width: 180px"
+            value="orcl11_101_2_204" />
+        用户名:
+        <input id="txtUserName" class="easyui-textbox" data-options="required:true" style="width: 110px"
+            value="jclw" />
+        密码：
+        <input id="txtPwd" class="easyui-textbox" data-options="required:true" style="width: 210px"
+            value="scxdcj" />
+        <a href="#" class="easyui-linkbutton" iconcls="icon-search" onclick="AjaxGetConnect()">
+            查询表空间</a>
+    </div>
+    <script type="text/javascript">
+        ///异步连接数据库
+        function AjaxGetConnect() {
+            var _username = $('#txtUserName').textbox('getText');
+            var _userpwd = $('#txtPwd').textbox('getText');
+            var _ip = $('#txtDbName').textbox('getText');
+            $.ajax({
+                url: 'Handler/DBHandler.ashx',
+                type: 'post',
+                datatype: 'json',
+                data: {
+                    action: 'tablespace',
+                    ip: _ip,
+                    username: _username,
+                    userpwd: _userpwd
+                },
+                success: function (msg) {
+                    $('#dg').datagrid('reload');
+                }
+            });
+        }
+
+        //加载datagrid 数据和事件
+        $('#dg').datagrid({
+            //url: 'data_center_serv.json',
+            url: 'Handler/DBHandler.ashx',
+            queryParams: {
+                action: 'tablespace',
+                ip: 'jclw_l11_101_2_204',
+                username: 'jclw',
+                userpwd: 'scxdcj'
+            },
+            title: "orecale 表空间查询",
+            //修改为post 需要修改IIS 服务器的.json配置文件
+            method: 'post',
+            singleSelect: true,
+            fitColumns: true,
+            pagination: true,
+            rownumbers: true,
+            toolbar: '#tb',
+            columns: [[
+            { field: 'TSPACENAME', title: '表空间名称', width: 210 },
+            { field: 'TSPACESIZE', title: '表空间大小(M)', width: 120 },
+            { field: 'USEDSPACE', title: '已使用空间(M)', width: 90 },
+            { field: 'USEDPERCENT', title: '使用比 %', width: 90 },
+            { field: 'LEAVSPACE', title: '空闲空间(M)', width: 90 },
+            { field: 'MAXSPACE', title: '最大块(M)', width: 90 },
+            ]]
+        });
+    </script>
+</body>
+</html>

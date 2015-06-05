@@ -1,0 +1,316 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="Content/js/jquery-easyui/themes/metro/easyui.css" rel="stylesheet" />
+    <link href="Content/js/jquery-easyui/themes/icon.css" rel="stylesheet" />
+    <script src="Content/js/jquery-easyui/jquery.min.js" type="text/javascript"></script>
+    <script src="Content/js/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="Content/js/jquery-easyui/datagrid-detailview.js" type="text/javascript"></script>
+</head>
+<body>
+    <table id="dg" class="easyui-datagrid" style="width: 100%; height: 750px">
+    </table>
+    <div id="tb" style="padding: 2px 5px;">
+        号牌种类:
+        <input id="comCllx" class="easyui-combobox" style="width: 180px" />
+        车辆号牌:
+        <!--<input id="comQh" class="easyui-combobox" style="width: 50px" value="" />-->
+        <select id="comQh" class="easyui-combobox" style="width: 70px;">
+            <option value="川">川</option>
+            <option value="京">京</option>
+            <option value="沪">沪</option>
+            <option value="津">津</option>
+            <option value="渝">渝</option>
+            <option value="黑">黑</option>
+            <option value="吉">吉</option>
+            <option value="辽">辽</option>
+            <option value="蒙">蒙</option>
+            <option value="冀">冀</option>
+            <option value="新">新</option>
+            <option value="甘">甘</option>
+            <option value="青">青</option>
+            <option value="陕">陕</option>
+            <option value="宁">宁</option>
+            <option value="豫">豫</option>
+            <option value="鲁">鲁</option>
+            <option value="晋">晋</option>
+            <option value="皖">皖</option>
+            <option value="鄂">鄂</option>
+            <option value="湘">湘</option>
+            <option value="苏">苏</option>
+            <option value="赣">赣</option>
+            <option value="黔">黔</option>
+            <option value="滇">滇</option>
+            <option value="云">云</option>
+            <option value="桂">桂</option>
+            <option value="贵">贵</option>
+            <option value="藏">藏</option>
+            <option value="浙">浙</option>
+            <option value="粤">粤</option>
+            <option value="闽">闽</option>
+            <option value="台">台</option>
+            <option value="琼">琼</option>
+            <option value="港">港</option>
+            <option value="澳">澳</option>
+            <option value="其它">其它</option>
+        </select>
+        <input id="txtHphm" class="easyui-textbox" style="width: 110px" value="" />
+        车辆识别代号：
+        <input id="txtClsbdh" class="easyui-textbox" style="width: 210px" value="" />
+        <a href="#" class="easyui-linkbutton" iconcls="icon-search" onclick="searchCarinfo()">
+            查找</a>
+    </div>
+    <script type="text/javascript">
+        var editIndex = undefined;
+        var _hphm = undefined;
+        var _clsbdh = undefined;
+        var _hpzl = undefined;
+        var _qh = undefined;
+        //        $('#comQh').combobox({
+        //            url: 'combobox_qh_data.json',
+        //            method: 'get',
+        //            valueField: 'id',
+        //            textField: 'text'
+        //        });
+        //加载 车辆类型 combox 列表
+        $('#comCllx').combobox({
+            url: 'Handler/Handler.ashx',
+            queryParams: {
+                action: 'getcllx'
+            },
+            valueField: 'CLLX',
+            textField: 'NAME'
+        });
+
+
+        //指定明细 事件
+        function detailFormatter(index, row) {
+            return '<div style="padding:2px"><table class="ddv"></table></div>';
+        }
+
+        //行样式修改 方法
+        function rowStyler(index, row) {
+            var jylhsc = row.JYLSH_sc;
+            var jylsh = row.JYLSH;
+            var scztsc = row.SCZT_sc;
+
+            if (scztsc == 1) {
+                row.SCZT_sc = '<span style="font-weight:bold;color:#669900">成功</span>'
+            }
+            if (scztsc == '' || scztsc != 1) {
+                row.SCZT_sc = '<span style="font-weight:bold;color:#FF0000"> 失败(' + scztsc + ')</span>';
+            }
+            if (jylhsc != jylsh) {
+                // row.JYLSH_sc = '<span style="font-weight:bold;color:#FF0000"> 未上传 </span>';
+            }
+        }
+
+        //行样式修改 方法
+        function detailRowStyler(index, row) {
+            var issc = row.ISSC;
+
+            if (issc == 1) {
+                row.ISSC = '<span style="font-weight:bold;color:#669900">成功</span>'
+            } else {
+                row.ISSC = '<span style="font-weight:bold;color:#FF0000"> 失败(' + issc + ')</span>';
+            }
+        }
+
+        //datagrid 重新加载数据
+        function datagridReLoad() {
+            $('#dg').datagrid('reload');
+        }
+
+        //查找车辆信息
+        function searchCarinfo() {
+            var _hp = $('#txtHphm').textbox('getText');
+            _qh = $('#comQh').combobox('getText');
+            if (_hp != undefined && _hp != '') {
+                _hphm = _qh + _hp;
+            }
+            _clsbdh = $('#txtClsbdh').textbox('getText');
+            //获取选中的车辆类型
+            _hpzl = $('#comCllx').combobox('getValue');
+
+            if ((_hphm != undefined && _hphm != '') || (_clsbdh != undefined && _clsbdh != '')) {
+                $('#dg').datagrid('load', {
+                    action: 'getcarinfo',
+                    hphm: _hphm,
+                    clsbdh: _clsbdh,
+                    hpzl: _hpzl
+                });
+                datagridReLoad();
+            } else {
+                $.messager.alert('提示', '请输入号牌号码或车辆识别代号!');
+            }
+        }
+
+        //明细状态设置
+        function ScDetailState(value, row, index) {
+            //return '<a href="Handler/Handler.ashx?action=scdetailreupload&scdetailid=' + row.ID + '">重传本明细</a>';
+            return '<a href="#" onclick="AjaxScDetailState(' + row.ID + ',0)">重传明细</a> &nbsp;&nbsp<a href="#" onclick="AjaxScDetailState(' + row.ID + ',1)">略过</a> &nbsp;&nbsp<a href="#" onclick="AjaxScDetailState(' + row.ID + ',4)">补传</a>';
+        }
+
+        //Ajax 明细状态设置
+        function AjaxScDetailState(id, state) {
+            $.ajax({
+                url: 'Handler/Handler.ashx',
+                type: 'post',
+                datatype: 'json',
+                data: {
+                    action: 'scdetailstate',
+                    scdetailid: id,
+                    state: state
+                },
+                success: function (msg) {
+                    datagridReLoad();
+                    $.messager.alert('提示', msg);
+                }
+            });
+        }
+
+        //流水状态设置
+        function ScinfoState(value, row, index) {
+            //return '<a href="Handler/Handler.ashx?action=scinforeupload&scinfoid=' + row.ID_sc + '">重传本流水</a>';
+            return '<a href="#" onclick="AjaxScinfoState(' + row.ID_sc + ',0)">重传流水</a> &nbsp;&nbsp;<a href="#" onclick="AjaxScinfoState(' + row.ID_sc + ',1)">略过</a>';
+        }
+
+        //Ajax 流水重传
+        function AjaxScinfoState(id, state) {
+            $.ajax({
+                url: 'Handler/Handler.ashx',
+                type: 'post',
+                datatype: 'json',
+                data: {
+                    action: 'scinforeupload',
+                    scinfoid: id,
+                    state: state
+                },
+                success: function (msg) {
+                    datagridReLoad();
+                    $.messager.alert('提示', msg);
+                }
+            });
+        }
+
+        //恢复历史
+        function ReCoverScHis(value, row, index) {
+            if (row.JYLSH_sc == null || row.JCLSH != row.JYLSH_sc) {
+                //return '<a href="Handler/Handler.ashx?action=recoverschis&jylsh=' + row.JCLSH + '">找回上传历史</a>';
+                return '<a href="#" onclick="AjaxReCoverScHis(' + row.JYLSH_sc + ')">找回历史</a>';
+            }
+            else {
+                return '';
+            }
+        }
+
+        //Ajax 流水重传
+        function AjaxReCoverScHis(jylsh) {
+            $.ajax({
+                url: 'Handler/Handler.ashx',
+                type: 'post',
+                datatype: 'json',
+                data: {
+                    action: 'recoverschis',
+                    jylsh: jylsh
+                },
+                success: function (msg) {
+                    datagridReLoad();
+                    $.messager.alert('提示', msg);
+                }
+            });
+        }
+
+        //data_detail.json
+        //展开明细 事件
+        function onExpandRow(index, row) {
+            var ddv = $(this).datagrid('getRowDetail', index).find('table.ddv');
+            var _jylsh = row.JCLSH;
+            ddv.datagrid({
+                url: 'Handler/Handler.ashx',
+                queryParams: {
+                    action: 'getscdetaildata',
+                    hphm: _hphm,
+                    jylsh: _jylsh
+                },
+                title: 'VEH_XML_DATA 车辆上传明细',
+                fitColumns: true,
+                singleSelect: true,
+                rownumbers: true,
+                loadMsg: '数据加载中...',
+                columns: [[
+                    { field: 'JYLSH', title: '上传流水号', width: 100 },
+                    { field: 'JKID', title: '接口ID', width: 100 },
+                    { field: 'ISSC', title: '单次上传状态', width: 30, editor: 'textbox' },
+                    { field: 'SCSBYY', title: '单次上传结果', width: 100 },
+                    { field: 'CREATETIME', title: '上传时间', width: 100 },
+                    { field: 'detailReUpload', title: "操作", width: 100, align: 'center',
+                        formatter: ScDetailState
+                    }
+                ]],
+                rowStyler: detailRowStyler,
+                onResize: function () {
+                    $('#dg').datagrid('fixDetailRowHeight', index);
+                },
+                onLoadSuccess: function () {
+                    setTimeout(function () {
+                        $('#dg').datagrid('fixDetailRowHeight', index);
+                    }, 0);
+                }
+            });
+            $('#dg').datagrid('fixDetailRowHeight', index);
+        }
+
+        //加载datagrid 数据和事件
+        $('#dg').datagrid({
+            url: 'Handler/Handler.ashx',
+            queryParams: {
+                action: 'getcarinfo',
+                hphm: _hphm,
+                clsbdh: _clsbdh,
+                cllx: _hpzl
+            },
+            title: "车辆检测上传数据",
+            singleSelect: true,
+            fitColumns: true,
+            toolbar: '#tb',
+            pagination: true,
+            rownumbers: true,
+            method: 'post',
+            columns: [
+            [
+                { title: 'Veh_Check_detail 检测站已上传的检测记录', width: 100, colspan: 8 },
+                { title: 'Vhe_sc_info 联网平台提交上传的上传记录', width: 100, colspan: 5 }
+
+            ],
+            [
+            { field: 'JCLSH', title: '检验流水号', width: 210 },
+            { field: 'JYJGBH', title: '检验机构', width: 120 },
+            { field: 'HPHM', title: '号牌号码', width: 90 },
+            { field: 'CLSBDH', title: '车辆识别代号', width: 170 },
+			{ field: 'JCLB', title: '检测类别', width: 100 },
+			{ field: 'JYXM', title: '检验项目', width: 300 },
+			{ field: 'CREATETIME', title: '检测时间', width: 180 },
+			{ field: 'zt', title: '数据状态', width: 150 },
+			{ field: 'JYLSH_sc', title: '上传流水号', width: 210 },
+			{ field: 'SCZT_sc', title: '上传状态', width: 60, editor: 'textbox' },
+            { field: 'SCSBYY_sc', title: '上传结果信息', width: 130 },
+            { field: 'reUpload', title: "操作", width: 120, align: 'center', formatter: ScinfoState },
+            { field: 'VehCheckHandle_revert', title: "历史恢复", width: 100, align: 'center',
+                formatter: ReCoverScHis
+            }
+            ]],
+            view: detailview,
+            detailFormatter: detailFormatter,
+            onExpandRow: onExpandRow,
+            rowStyler: rowStyler,
+            onLoadSuccess: function (msg) {
+            },
+            onLoadError: function (msg) {
+            }
+        });
+    </script>
+</body>
+</html>

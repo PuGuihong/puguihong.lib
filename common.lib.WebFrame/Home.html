@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>首页</title>
+    <link href="Content/js/jquery-easyui/themes/metro/easyui.css" rel="stylesheet" />
+    <link href="Content/css/default.css" rel="stylesheet" type="text/css" />
+    <link href="Content/js/jquery-easyui/themes/icon.css" rel="stylesheet" />
+    <script src="Content/js/jquery-1.7.2.js" type="text/javascript"></script>
+    <script src="Content/js/jquery-easyui/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
+    <script src="Content/js/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="Content/js/outlook.js" type="text/javascript"></script>
+</head>
+<body class="easyui-layout">
+    <div data-options="region:'north',border:false" style="height: 113px">
+        <div style="width: 100%; height: 69px" class="topup-back">
+            <table width="100%" height="69px" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="2%" align="right" valign="middle" style="min-width: 72px;">
+                        <img src="Content/js/jquery-easyui/themes/metro/images/top/logo.png" width="72" height="68"
+                            alt="logo">
+                    </td>
+                    <td width="47%" align="left" valign="middle" class="name" style="min-width: 300px;">
+                        安检联网平台维护系统
+                    </td>
+                    <td width="31%" align="right" valign="middle" style="min-width: 300px;">
+                        <div class="searchbox-kuang">
+                            <div class="searchbox-kuang-left">
+                                <div class="selet">
+                                    请选择</div>
+                                <div class="arrows">
+                                    <img src="Content/js/jquery-easyui/themes/metro/images/top/menu_arrows_down.png"
+                                        width="8" height="4" alt="arrows"></div>
+                            </div>
+                            <div class="searchbox-kuang-mild">
+                            </div>
+                            <div class="searchbox-kuang-right">
+                            </div>
+                            <div class="searchbox-kuang_button">
+                                <a href="#">搜索</a></div>
+                        </div>
+                    </td>
+                    <td width="14%" align="center" valign="middle" style="min-width: 100px;">
+                        您好！欢迎登录安检联网维护系统
+                    </td>
+                    <td width="6%" align="center" valign="middle" style="min-width: 98px;">
+                        <div class="top-right-back-left">
+                        </div>
+                        <div class="top-right-back-mild">
+                        </div>
+                        <div class="top-right-back-right">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <ul id="css3menu" style="padding: 0px; margin: 0px; list-type: none; float: left;">
+            <li><a class="active" name="RuntimeTrans" href="javascript:;" title="运行环境监测">运行环境监测</a></li>
+            <li><a name="CheckScTrans" href="javascript:;" title="检测故障分析">检测故障分析</a></li>
+            <li><a name="DataTrans" href="javascript:;" title="数据维护">数据维护</a></li>
+            <!--<li><a name="ToolKits" href="javascript:;" title="常用工具">常用工具</a></li>-->
+        </ul>
+    </div>
+    <div data-options="region:'west',split:true,title:'功能菜单'" style="width: 180px; background-color: #ecf5fc;">
+        <div id="wnav" class="easyui-accordion" fit="true" border="false" style="text-align: center;">
+        </div>
+    </div>
+    <!--<div data-options="region:'east',split:true,collapsed:true,title:'East'" style="width:100px;padding:10px;">东部</div>-->
+    <!--<div data-options="region:'south',border:false" style="height:50px;background:#A9FACD;padding:10px;">南部</div>-->
+    <div data-options="region:'center'">
+        <div id="tabs" class="easyui-tabs" style="width: 100%; height: 750px;">
+            <div title="首页" style="width: 100%; height: 750px;">
+                <iframe scrolling="auto" frameborder="0" src="CheckScDataTrans.html" style="width: 100%;
+                    height: 100%;"></iframe>
+            </div>
+        </div>
+    </div>
+    <div id="mm" class="easyui-menu" style="width: 150px;">
+        <div id="mm-tabupdate">
+            刷新</div>
+        <div class="menu-sep">
+        </div>
+        <div id="mm-tabclose">
+            关闭</div>
+        <div id="mm-tabcloseall">
+            全部关闭</div>
+        <div id="mm-tabcloseother">
+            除此之外全部关闭</div>
+        <div class="menu-sep">
+        </div>
+        <div id="mm-tabcloseright">
+            当前页右侧全部关闭</div>
+        <div id="mm-tabcloseleft">
+            当前页左侧全部关闭</div>
+        <div class="menu-sep">
+        </div>
+        <div id="mm-exit">
+            退出</div>
+    </div>
+    <script type="text/javascript">
+        ///格式化数据
+        var _menus = {
+            RuntimeTrans: [{
+                "menuid": "10",
+                "icon": "icon-sys",
+                "menuname": "网络设备监测",
+                "menus": [{
+                    "menuid": "111",
+                    "menuname": "中心机房连接状态",
+                    "icon": "icon-nav",
+                    "url": "CenterRuntimeTrans.html"
+                }, {
+                    "menuid": "113",
+                    "menuname": "机构前端连接状态",
+                    "icon": "icon-nav",
+                    "url": "JGRuntimeTrans.html"
+                }]
+            }, {
+                "menuid": "20",
+                "icon": "icon-sys",
+                "menuname": "接口连接监测",
+                "menus": [{
+                    "menuid": "211",
+                    "menuname": "监管平台接口状态",
+                    "icon": "icon-nav",
+                    "url": "CenterInterfaceTrans.html"
+                }, {
+                    "menuid": "213",
+                    "menuname": "机构前端接口状态",
+                    "icon": "icon-nav",
+                    "url": "JGInterfaceTrans.html"
+                }]
+            }, {
+                "menuid": "30",
+                "icon": "icon-sys",
+                "menuname": "数据库状态监测",
+                "menus": [{
+                    "menuid": "311",
+                    "menuname": "中心机房数据库状态",
+                    "icon": "icon-nav",
+                    "url": "CenterDataBaseRuntimeTrans.html"
+                }, {
+                    "menuid": "313",
+                    "menuname": "机构前端数据库状态",
+                    "icon": "icon-nav",
+                    "url": "JGDataBaseRuntimeTrans.html"
+                }]
+            }],
+            CheckScTrans: [{
+                "menuid": "40",
+                "icon": "icon-sys",
+                "menuname": "车辆故障分析",
+                "menus": [{
+                    "menuid": "411",
+                    "menuname": "检测数据故障",
+                    "icon": "icon-nav",
+                    "url": "CheckScDataTrans.html"
+                }]
+
+            }],
+            DataTrans: [{
+                "menuid": "50",
+                "icon": "icon-sys",
+                "menuname": "日常数据维护",
+                "menus": [{
+                    "menuid": "511",
+                    "menuname": "查验数据异常",
+                    "icon": "icon-nav",
+                    "url": "CheckCyDataTrans.html"
+                }]
+            }, {
+                "menuid": "60",
+                "icon": "icon-sys",
+                "menuname": "其他数据维护",
+                "menus": [{
+                    "menuid": "611",
+                    "menuname": "照片数据缺失",
+                    "icon": "icon-nav",
+                    "url": "CheckPictureDataTrans.html"
+                }]
+            }],
+            ToolKits: [{
+                "menuid": "70",
+                "icon": "icon-sys",
+                "menuname": "维护工具集",
+                "menus": [{
+                    "menuid": "711",
+                    "menuname": "车辆退办",
+                    "icon": "icon-nav",
+                    "url": "TBToolkits.html"
+                }]
+            }]
+        };
+
+        //        $.getJSON("Handler/SystemConfigHandler.ashx", { action: "getsystemmenu" }, function (data) {
+        //            $.each(data, function (i, item) {
+        //                var groupInfo = item;
+        //                var strMenuItemHTML = "";
+        //                $.each(item.MenuItems, function (j, menu) {//font-weight:bold
+        //                    strMenuItemHTML += '<div style="height:22px;padding-top:10px;font-size:10pt;"><a onclick="AddTab(this)" src="' + menu.URL + '" class="menuLink">' + menu.MENUNAME + '</a></div>';
+        //                });
+        //                $("#MenuGroup").accordion('add', {
+        //                    title: groupInfo.GroupName,
+        //                    content: strMenuItemHTML,
+        //                    selected: false
+        //                });
+        //            });
+        //            //$("#MenuGroup").accordion('select', groupInfo.GroupName);
+
+        //        });
+    </script>
+</body>
+</html>

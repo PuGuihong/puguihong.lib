@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "common.lib.NetConnector", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "common.lib.DataConvertHelper", "common.lib.DataConvertHelper\common.lib.DataConvertHelper.csproj", "{852A80CF-5530-4FC6-934B-FBB642FEEE71}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "common.lib.WebFrame", "common.lib.WebFrame\common.lib.WebFrame.csproj", "{EF400D68-96DB-4FAB-A7F0-5007DDD15703}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{852A80CF-5530-4FC6-934B-FBB642FEEE71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{852A80CF-5530-4FC6-934B-FBB642FEEE71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{852A80CF-5530-4FC6-934B-FBB642FEEE71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF400D68-96DB-4FAB-A7F0-5007DDD15703}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF400D68-96DB-4FAB-A7F0-5007DDD15703}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF400D68-96DB-4FAB-A7F0-5007DDD15703}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF400D68-96DB-4FAB-A7F0-5007DDD15703}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

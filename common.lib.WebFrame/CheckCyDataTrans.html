@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="Content/js/jquery-easyui/themes/metro/easyui.css" rel="stylesheet" />
+    <link href="Content/js/jquery-easyui/themes/icon.css" rel="stylesheet" />
+    <script src="Content/js/jquery-easyui/jquery.min.js" type="text/javascript"></script>
+    <script src="Content/js/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="Content/js/jquery-easyui/datagrid-detailview.js" type="text/javascript"></script>
+    <script src="Content/js/jquery-easyui/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
+</head>
+<body>
+    <table id="dg" class="easyui-datagrid" style="width: 100%; height: 750px">
+    </table>
+    <div id="tb" style="padding: 2px 5px;">
+        车辆号牌:
+        <input id="txtHphm" class="easyui-textbox" style="width: 110px" value="" />
+        车辆识别代号：
+        <input id="txtClsbdh" class="easyui-textbox" style="width: 210px" value="" />
+        <a href="#" class="easyui-linkbutton" iconcls="icon-search" onclick="searchCyinfo()">
+            查找</a>
+    </div>
+    <script type="text/javascript">
+        var editIndex = undefined;
+        var _hphm = $('#txtHphm').val();
+        var _clsbdh = $('#txtClsbdh').val();
+        var _cyzt = undefined;
+
+        //行样式修改 方法
+        function rowStyler(index, row) {
+            var cyzt = row.CYZT;
+
+            if (cyzt == 1) {
+                row.CYZT = '<h7 style="font-weight:bold;color:#669900">成功</h7>'
+            } else {
+                row.CYZT = '<h7 style="font-weight:bold;color:#FF0000"> 失败(' + cyzt + ')</h7>';
+            }
+        }
+
+        //datagrid 重新加载数据
+        function datagridReLoad() {
+            $('#dg').datagrid('reload');
+        }
+
+        //查找车辆查验信息
+        function searchCyinfo() {
+            _hphm = $('#txtHphm').val();
+            $('#dg').datagrid('load', {
+                action: 'getcyvhiclelist',
+                hphm: _hphm
+            });
+        }
+
+        //查验详情
+        function cyinfoDetail(value, row, index) {
+            return '<a href="#' + row.JYLSH + '">查看</a>';
+        }
+
+        //加载datagrid 数据和事件
+        $('#dg').datagrid({
+            url: 'Handler/Handler.ashx',
+            queryParams: {
+                action: 'getcyvhiclelist',
+                hphm: _hphm,
+                clsbdh: _clsbdh
+            },
+            title: "车辆查验明细",
+            singleSelect: true,
+            fitColumns: true,
+            toolbar: '#tb',
+            pagination: true,
+            rownumbers: true,
+            columns: [
+            [
+            { field: 'JYLSH', title: '检验流水号', width: 210 },
+            { field: 'CYZT', title: '查验状态', width: 120 },
+            { field: 'HPHM', title: '号牌号码', width: 90 },
+			{ field: 'JYSJ', title: '查验时间', width: 180 }
+            ]],
+            rowStyler: rowStyler,
+            view: detailview,
+            detailFormatter: function (rowIndex, rowData) {
+                return '<table><tr>' +
+                '<td rowspan=2 style="border:0;width:200px">【' + rowData.HPHM + '】查验明细</td>' +
+                '<td style="border:0">' +
+                '<p>车辆识别代号: ' + rowData.JCZBH + '</p>' +
+                '<p>车辆识别代号: ' + rowData.CLSBDH + '</p>' +
+                '</td>' +
+                '<td style="border:0;width:300px">' +
+                '<p>号牌种类: ' + rowData.HPZL + '</p>' +
+                '<p>创建时间: ' + rowData.CREATETIME + '</p>' +
+                '</td>' +
+                '<td rowspan=2 style="border:0;width:300px">【失败原因】:\n' + rowData.CYSBYY + '</td>' +
+                '</tr></table>';
+            }
+        });
+    </script>
+</body>
+</html>

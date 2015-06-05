@@ -1,0 +1,41 @@
+{
+    "total": 4,
+    "rows": [
+        {
+            "ID": "1",
+            "JYJGBH": "5201000012",
+			"JYJGMC":"绵阳市顺通机动车安全技术检测中心（绵阳顺通）",
+            "JKMC": "车辆信息下载",
+			"JKID": "18C51",
+            "JKDZ": "11.101.2.204",
+            "XML_DATA": "<root><vehispara><jylsh>510522150507000450101</jylsh><jyjgbh>5100000112</jyjgbh><jcxdh>1</jcxdh><jycs>1</jycs><hphm>川E33493</hphm><hpzl>01</hpzl><clsbdh>LZFF25M449D038557</clsbdh><kssj>2015-05-07 15:08:21</kssj></vehispara></root>"
+        },
+        {
+            "ID": "2",
+            "JYJGBH": "5201000012",
+			"JYJGMC":"绵阳市顺通机动车安全技术检测中心（绵阳顺通）",
+            "JKMC": "检测开始",
+			"JKID": "18C52",
+            "JKDZ": "11.101.2.204",
+            "XML_DATA": "<root><vehispara><jylsh>510522150507000450101</jylsh><jyjgbh>5100000112</jyjgbh><jcxdh>1</jcxdh><jycs>1</jycs><hphm>川E33493</hphm><hpzl>01</hpzl><clsbdh>LZFF25M449D038557</clsbdh><kssj>2015-05-07 15:08:21</kssj></vehispara></root>"
+        },
+        {
+            "ID": "3",
+            "JYJGBH": "5201000012",
+			"JYJGMC":"绵阳市顺通机动车安全技术检测中心（绵阳顺通）",
+            "JKMC": "检测信息上传",
+			"JKID": "18C80",
+            "JKDZ": "11.101.2.204",
+            "XML_DATA": "<root><vehispara><jylsh>510522150507000450101</jylsh><jyjgbh>5100000112</jyjgbh><jcxdh>1</jcxdh><jycs>1</jycs><hphm>川E33493</hphm><hpzl>01</hpzl><clsbdh>LZFF25M449D038557</clsbdh><kssj>2015-05-07 15:08:21</kssj></vehispara></root>"
+        },
+        {
+            "ID": "4",
+            "JYJGBH": "5201000012",
+			"JYJGMC":"绵阳市顺通机动车安全技术检测中心（绵阳顺通）",
+            "JKMC": "检验过程结束",
+			"JKID": "18C62",
+            "JKDZ": "11.101.2.204",
+            "XML_DATA": "<root><vehispara><jylsh>510522150507000450101</jylsh><jyjgbh>5100000112</jyjgbh><jcxdh>1</jcxdh><jycs>1</jycs><hphm>川E33493</hphm><hpzl>01</hpzl><clsbdh>LZFF25M449D038557</clsbdh><kssj>2015-05-07 15:08:21</kssj></vehispara></root>"
+        }
+    ]
+}

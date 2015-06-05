@@ -1,0 +1,22 @@
+[{
+    "id":1,
+    "text":"text1",
+	"lx":"lx1"
+},{
+    "id":2,
+    "text":"text2",
+	"lx":"lx2"
+},{
+    "id":3,
+    "text":"text3",
+    "selected":true,
+	"lx":"lx3"
+},{
+    "id":4,
+    "text":"text4",
+	"lx":"lx4"
+},{
+    "id":5,
+    "text":"text5",
+	"lx":"lx5"
+}]

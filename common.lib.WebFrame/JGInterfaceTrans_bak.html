@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="Content/js/jquery-easyui/themes/metro/easyui.css" rel="stylesheet" />
+    <link href="Content/js/jquery-easyui/themes/icon.css" rel="stylesheet" />
+    <script src="Content/js/jquery-easyui/jquery.min.js" type="text/javascript"></script>
+    <script src="Content/js/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
+</head>
+<body>
+    <table id="dg" class="easyui-datagrid" style="width: 100%; height: 750px">
+    </table>
+    <div id="tb" style="padding: 2px 5px;">
+        机构名称:
+        <input id="txtJgmc" class="easyui-textbox" style="width: 180px" />
+        检验机构编号:
+        <input id="txtJgbh" class="easyui-textbox" style="width: 110px" value="" />
+        <a href="#" class="easyui-linkbutton" iconcls="icon-search" onclick="GetSearch()">查找</a>
+    </div>
+    <div id="dlg" class="easyui-dialog">
+        <table style="width: 100%">
+            <tr>
+                <td>
+                    系统类别
+                </td>
+                <td>
+                    <input id="txtXtlb" class="easyui-textbox" style="width: 100px; height: 20px" />
+                </td>
+                <td>
+                    接口ID：
+                </td>
+                <td>
+                    <input id="txtJkId" class="easyui-textbox" style="width: 100px; height: 20px" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    接口序列号：
+                </td>
+                <td>
+                    <input id="txtJkxlh" class="easyui-textbox" style="width: 100px; height: 20px" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    接口发送地址：
+                </td>
+                <td colspan="2">
+                    <input id="txtUrl" class="easyui-textbox" style="width: 100%; height: 20px" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    Xml数据：
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <input id="txtXmlDoc" class="easyui-textbox" data-options="multiline:true" style="width: 520px;
+                        height: 200px" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="AjaxPostXml()">发送</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#dlg').dialog('close')">
+            取消</a>
+    </div>
+    <script type="text/javascript">
+        var jgmc = undefined;
+        var jgbh = undefined;
+        ///异步发送xml数据
+        function AjaxPostXml() {
+            var _txtUrl = $('#txtUrl').textbox('getText');
+            var _txtXtlb = $('#txtXtlb').textbox('getText');
+            var _txtJkId = $('#txtJkId').textbox('getText');
+            var _txtJkxlh = $('#txtJkxlh').textbox('getText');
+            var _txtXmlDoc = $('#txtXmlDoc').textbox('getText');
+            $.ajax({
+                url: 'Handler/JKHandler.ashx',
+                type: 'post',
+                datatype: 'json',
+                data: {
+                    action: 'interfaceconnect',
+                    url: _txtUrl,
+                    lb: _txtXtlb,
+                    jkid: _txtJkId,
+                    jkxlh: _txtJkxlh,
+                    xmldoc: _txtXmlDoc
+                },
+                success: function (msg) {
+                    $.messager.alert('提示', _txtUrl + ':' + _txtJkId + '连接结果：' + msg);
+                }
+            });
+        }
+
+        function GetSearch() {
+            jgmc = $('#txtJgmc').textbox('getText');
+            jgbh = $('#txtJgbh').textbox('getText')
+            //获取选中的车辆类型
+            $('#dg').datagrid('load', {
+                action: 'getjginfo',
+                jgmc: jgmc,
+                jgbh: jgbh
+            });
+        }
+
+        ///连接测试操作连接 方法
+        function ConncetHandler(value, row, index) {
+            return '<a href="#" onclick="OpenDialog()">连接</a>';
+        }
+
+        ///打开数据发送对话框，编辑要发送的配置数据
+        function OpenDialog() {
+            $('#txtUrl').textbox('setText', 'http://11.101.2.204/TrffWeb/JCZService/TmriOutAccess.asmx/queryObjectOut');
+            $('#txtXtlb').textbox('setText', '18');
+            $('#txtXmlDoc').textbox('setText', '<?xml version=\"1.0\" encoding=\"GBK\"?><root><QueryCondition><jczbh>5101000001</jczbh></QueryCondition></root>');
+            $('#dlg').dialog('open');
+        }
+
+        ///Xml 编辑发送 对话框
+        $('#dlg').dialog({
+            title: 'XML 发送',
+            width: 600,
+            height: 400,
+            closed: true,
+            buttons: '#dlg-buttons'
+        });
+
+        //加载datagrid 数据和事件
+        $('#dg').datagrid({
+            //url: 'data_jk_interface.json',
+            url: 'Handler/ConfigHandler.ashx',
+            queryParams: {
+                action: 'getjginfo',
+                jgmc: jgmc,
+                jgbh: jgbh
+            },
+            title: "机构前段接口状态",
+            //修改为post 需要修改IIS 服务器的.json配置文件
+            singleSelect: true,
+            fitColumns: true,
+            pagination: true,
+            rownumbers: true,
+            toolbar: '#tb',
+            columns: [[
+            { field: 'JGMC', title: '机构名称', width: 210 },
+            { field: 'JGID', title: '机构编号', width: 120 },
+            //{ field: 'JKDZ', title: '接口地址', width: 90 },
+            {field: 'ConncetHandler', title: '操作', width: 90, formatter: ConncetHandler }
+            ]]
+        });
+    </script>
+</body>
+</html>
