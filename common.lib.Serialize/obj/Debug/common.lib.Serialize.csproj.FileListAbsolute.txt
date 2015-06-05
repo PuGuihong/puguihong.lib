@@ -1,0 +1,5 @@
+D:\_puguihong\puguihong.dev\mycode\puguihong.lib\common.lib.Serialize\bin\Debug\common.lib.Serialize.dll
+D:\_puguihong\puguihong.dev\mycode\puguihong.lib\common.lib.Serialize\bin\Debug\common.lib.Serialize.pdb
+D:\_puguihong\puguihong.dev\mycode\puguihong.lib\common.lib.Serialize\obj\Debug\common.lib.Serialize.dll
+D:\_puguihong\puguihong.dev\mycode\puguihong.lib\common.lib.Serialize\obj\Debug\common.lib.Serialize.pdb
+D:\_puguihong\puguihong.dev\mycode\puguihong.lib\common.lib.Serialize\bin\Debug\Newtonsoft.Json.dll

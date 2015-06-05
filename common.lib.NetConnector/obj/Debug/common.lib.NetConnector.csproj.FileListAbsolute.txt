@@ -1,0 +1,4 @@
+D:\_puguihong\puguihong.dev\mycode\puguihong.lib\common.lib.NetConnector\bin\Debug\common.lib.NetConnector.dll
+D:\_puguihong\puguihong.dev\mycode\puguihong.lib\common.lib.NetConnector\bin\Debug\common.lib.NetConnector.pdb
+D:\_puguihong\puguihong.dev\mycode\puguihong.lib\common.lib.NetConnector\obj\Debug\common.lib.NetConnector.dll
+D:\_puguihong\puguihong.dev\mycode\puguihong.lib\common.lib.NetConnector\obj\Debug\common.lib.NetConnector.pdb

@@ -4,3 +4,10 @@ C:\Users\Administrator\Desktop\puguihong.lib\common.lib.DBUtility\bin\Debug\Syst
 C:\Users\Administrator\Desktop\puguihong.lib\common.lib.DBUtility\obj\Debug\common.lib.DBUtility.dll
 C:\Users\Administrator\Desktop\puguihong.lib\common.lib.DBUtility\obj\Debug\common.lib.DBUtility.pdb
 C:\Users\Administrator\Desktop\puguihong.lib\common.lib.DBUtility\bin\Debug\MySql.Data.dll
+D:\_puguihong\puguihong.dev\mycode\puguihong.lib\common.lib.DBUtility\bin\Debug\common.lib.DBUtility.dll
+D:\_puguihong\puguihong.dev\mycode\puguihong.lib\common.lib.DBUtility\bin\Debug\common.lib.DBUtility.pdb
+D:\_puguihong\puguihong.dev\mycode\puguihong.lib\common.lib.DBUtility\bin\Debug\MySql.Data.dll
+D:\_puguihong\puguihong.dev\mycode\puguihong.lib\common.lib.DBUtility\bin\Debug\System.Data.SQLite.dll
+D:\_puguihong\puguihong.dev\mycode\puguihong.lib\common.lib.DBUtility\obj\Debug\common.lib.DBUtility.csprojResolveAssemblyReference.cache
+D:\_puguihong\puguihong.dev\mycode\puguihong.lib\common.lib.DBUtility\obj\Debug\common.lib.DBUtility.dll
+D:\_puguihong\puguihong.dev\mycode\puguihong.lib\common.lib.DBUtility\obj\Debug\common.lib.DBUtility.pdb
